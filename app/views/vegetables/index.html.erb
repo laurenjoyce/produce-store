@@ -1,0 +1,26 @@
+<h1>All Vegetables<h1>
+
+<h2>Want to add a new vegetable to the list? Click <a href="/vegetables/new">here</a>!</h2>
+
+  <% @vegetables.each_slice(3) do |three_vegetables| %>
+    <div class="row">
+      <% three_vegetables.each do |vegetable| %>
+        <div class="col-md-4">
+          <div class="well">
+            <h2><%= vegetable.name %></h2>
+            <h4>Click the photo below to learn more about <%= vegetable.name %></h4>
+            <h4><a href="/vegetables/<%= vegetable.id %>"><img src="<%= vegetable.image %>"></a></h4>
+            <h4>Price: <%= number_to_currency(vegetable.price) %> (<%= vegetable.sale_message %>)</h4>
+            <h4>Description: <%= vegetable.description %></h4>
+            <h4>Health Benefits:</h4>
+              <ul>
+                <% vegetable.health_benefits_list.each do |health_benefit| %>
+                  <li><%= health_benefit %></li>
+                <% end %>
+              </ul>
+            <h4>Last updated: <%= vegetable.friendly_updated_at %></h4>   
+          </div>
+        </div>
+      <% end %>
+  </div>
+<% end %>

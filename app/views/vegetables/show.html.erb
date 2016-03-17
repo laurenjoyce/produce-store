@@ -1,0 +1,18 @@
+  <h2>Name: <%= @vegetable.name %></h2>
+  <p><img id="special" src="<%= @vegetable.image %>"></p>
+  <p>Price: <%= number_to_currency(@vegetable.price) %> (<%= @vegetable.sale_message %>)</p>
+  <p>Tax: <%= number_to_currency(@vegetable.tax) %> </p>
+  <p>Total cost: <%= number_to_currency(@vegetable.total_cost) %> </p>
+  <p>Description: <%= @vegetable.description %></p>
+  <p>Health Benefits:</p>
+          <ul>
+            <% @vegetable.health_benefits_list.each do |health_benefit| %>
+              <li><%= health_benefit %></li>
+            <% end %>
+          </ul>
+  <p>Last updated: <%= @vegetable.friendly_updated_at %></p>
+
+
+  <%= link_to "Edit this vegetable", "/vegetables/#{@vegetable.id}/edit" %><br/>
+  <%= link_to "Delete this vegetable", "/vegetables/#{@vegetable.id}", method: :delete %><br/>
+  <%= link_to "Back to index", "/vegetables" %><br/>
