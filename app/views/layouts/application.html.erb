@@ -73,7 +73,11 @@
     <%= message.html_safe %>  
   </div>
 <% end %> 
-
+ <%= form_tag "/search", method: :post do %>
+    <%= label_tag :search %>
+    <%= text_field_tag :search %>
+    <%= submit_tag "Search" %>
+  <% end %>
 <%= yield %>
 </div>
 

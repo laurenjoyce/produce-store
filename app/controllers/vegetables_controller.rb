@@ -21,7 +21,13 @@ class VegetablesController < ApplicationController
 
   def show
     vegetable_id = params[:id]
-    @vegetable = Vegetable.find_by(id: vegetable_id)
+
+    if vegetable_id == "random"
+      vegetables = Vegetable.all
+      @vegetable = vegetables.sample
+    else
+      @vegetable = Vegetable.find_by(id: vegetable_id)
+    end
     render 'show.html.erb'
   end
 
@@ -56,5 +62,11 @@ class VegetablesController < ApplicationController
     @vegetable.destroy
     flash[:success] = "Vegetable successfully deleted!"
     redirect_to "/vegetables"
+  end
+
+  def run_search
+    search_term = params[:search]
+    @vegetables = Vegetable.where("name LIKE ?", "%" + search_term + "%")
+    render "index.html.erb"  
   end
 end

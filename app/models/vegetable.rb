@@ -1,4 +1,6 @@
 class Vegetable < ActiveRecord::Base
+  belongs_to :supplier
+
   def health_benefits_list
     if health_benefits
       health_benefits.split(', ')
@@ -20,7 +22,7 @@ class Vegetable < ActiveRecord::Base
   end
 
   def tax
-    price * 0.09
+    price * 0.09 
   end
 
   def total_cost
