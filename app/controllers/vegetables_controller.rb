@@ -36,7 +36,7 @@ class VegetablesController < ApplicationController
   end
 
   def create
-    Vegetable.create(name: params[:name], image: params[:image], price: params[:price], description: params[:description], health_benefits: params[:health_benefits])
+    Vegetable.create(name: params[:name], image: params[:image], price: params[:price], description: params[:description], health_benefits: params[:health_benefits], user_id: current_user.id)
     vegetable = Vegetable.last
     flash[:success] = "Vegetable successfully created!"
     redirect_to "/vegetables/#{vegetable.id}"

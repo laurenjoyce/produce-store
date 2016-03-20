@@ -1,5 +1,6 @@
 class Vegetable < ActiveRecord::Base
   belongs_to :supplier
+  has_many :orders
 
   def health_benefits_list
     if health_benefits
