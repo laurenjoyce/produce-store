@@ -11,6 +11,6 @@ class Order < ActiveRecord::Base
   end
 
   def total_cost
-    price + tax
+    subtotal + tax
   end
 end

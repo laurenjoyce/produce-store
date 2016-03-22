@@ -19,13 +19,14 @@
   </div>
 
   <div>
-    <%= label_tag :vegetable_id, "Vegetable id" %>
-    <%= text_field_tag :vegetable_id %>
+  <%= hidden_field_tag "vegetable_id", @vegetable.id %>
   </div>
+
 
   <div>
     <%= submit_tag "Buy Now!" %>
   </div>
+  
 <% end %>
 
   <p>Last updated: <%= @vegetable.friendly_updated_at %></p>
