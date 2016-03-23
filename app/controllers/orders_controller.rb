@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
     tax = subtotal * 0.09
     total = subtotal + tax
     
-    Order.create(
+    @order = Order.create(
       vegetable_id: params[:vegetable_id], 
       quantity: params[:quantity],
       subtotal: subtotal,

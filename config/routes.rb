@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   post '/search' => 'vegetables#run_search'
 
   post '/orders' => 'orders#create'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
