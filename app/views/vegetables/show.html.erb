@@ -1,4 +1,5 @@
   <h2>Name: <%= @vegetable.name %></h2>
+
   <p><img id="special" src="<%= @vegetable.image %>"></p>
   <p>Price: <%= number_to_currency(@vegetable.price) %> (<%= @vegetable.sale_message %>)</p>
   <p>Tax: <%= number_to_currency(@vegetable.tax) %> </p>
@@ -11,7 +12,7 @@
             <% end %>
           </ul>
 
-<%= form_tag '/orders', method: :post do %>
+<%= form_tag '/carted_products', method: :post do %>
 
   <div>
     <%= label_tag :quantity %>
@@ -19,14 +20,17 @@
   </div>
 
   <div>
-  <%= hidden_field_tag "vegetable_id", @vegetable.id %>
+  <%= hidden_field_tag :vegetable_id, @vegetable.id %>
   </div>
-
 
   <div>
-    <%= submit_tag "Buy Now!" %>
+  <%= hidden_field_tag :status, "In Cart" %>
   </div>
-  
+
+  <div>
+    <%= submit_tag "Add To Cart" %>
+  </div>
+
 <% end %>
 
   <p>Last updated: <%= @vegetable.friendly_updated_at %></p>

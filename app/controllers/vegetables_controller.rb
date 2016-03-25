@@ -16,6 +16,10 @@ class VegetablesController < ApplicationController
       @vegetables = Vegetable.where("#{less_than_two} < ?", 2)
     end
 
+    if params[:category]
+      @vegetables = Category.find_by(name: params[:category]).vegetables     
+    end
+        
     render 'index.html.erb'
   end
 
