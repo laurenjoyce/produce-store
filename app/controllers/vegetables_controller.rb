@@ -1,4 +1,6 @@
 class VegetablesController < ApplicationController
+  before_action :authenticate_admin!, except: [:index, :show, :run_search]
+
   def index
     @vegetables = Vegetable.all 
     sort_attribute = params[:sort]
@@ -18,8 +20,7 @@ class VegetablesController < ApplicationController
 
     if params[:category]
       @vegetables = Category.find_by(name: params[:category]).vegetables     
-    end
-        
+    end  
     render 'index.html.erb'
   end
 
@@ -36,14 +37,24 @@ class VegetablesController < ApplicationController
   end
 
   def new
-    render 'new.html.erb'
+    @vegetable = Vegetable.new
+    render "new.html.erb"
   end
 
   def create
-    Vegetable.create(name: params[:name], image: params[:image], price: params[:price], description: params[:description], health_benefits: params[:health_benefits], user_id: current_user.id)
-    vegetable = Vegetable.last
-    flash[:success] = "Vegetable successfully created!"
-    redirect_to "/vegetables/#{vegetable.id}"
+    @vegetable = Vegetable.new(id: params[:id],
+                               name: params[:name],
+                               price: params[:price],
+                               image: params[:image],
+                               description: params[:description],
+                               health_benefits: params[:health_benefits],
+                               user_id: current_user.id)
+    if @vegetable.save
+      flash[:success] = "Vegetable successfully created!"
+      redirect_to "/vegetables/#{vegetable.id}"
+    else
+      render "new.html.erb"
+    end
   end
 
   def edit
@@ -53,11 +64,17 @@ class VegetablesController < ApplicationController
   end
 
   def update
-    vegetable_id = params[:id]
-    @vegetable = Vegetable.find_by(id: vegetable_id)
-    @vegetable.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], health_benefits: params[:health_benefits])
-    flash[:success] = "Vegetable successfully updated!"
-    redirect_to "/vegetables/#{@vegetable.id}"
+    @vegetable = Vegetable.find_by(id: params[:id])
+    if @vegetable.update(name: params[:name], 
+                         price: params[:price], 
+                         image: params[:image], 
+                         description: params[:description], 
+                         health_benefits: params[:health_benefits])
+      flash[:success] = "Vegetable successfully updated!"
+      redirect_to "/vegetables/#{@vegetable.id}"
+    else
+      render "edit.html.erb"
+    end  
   end
 
   def destroy
@@ -72,5 +89,13 @@ class VegetablesController < ApplicationController
     search_term = params[:search]
     @vegetables = Vegetable.where("name LIKE ?", "%" + search_term + "%")
     render "index.html.erb"  
+  end
+
+  private
+
+  def authenticate_admin!
+    unless current_user && current_user.admin
+      redirect_to "/"
+    end
   end
 end

@@ -1,9 +1,18 @@
 <h1>Your order has been successfully created:</h1>
 
-<h2>Vegetable name: <%= @order.vegetable.name %></h2>
-<h3>Order id: <%=  @order.id %></h3>
-<h3>Quantity: <%= @order.quantity %></h3>
-
+<h3>Order id: <%=1000 + @order.id %></h3>
+<h3>Puchased at: <%= @order.created_at %></h3>
+<h3>Email: <%= current_user.email %></h3>
+</br>
+</br>
+</br>
+<% @order.carted_products.each do |carted_product| %>
+  <h2>Name: <%= carted_product.product.name %></h2>
+  <h2>Quantity: <%= carted_product.quantity %></h2>
+<% end %>
+</br>
+</br>
+</br>
 <h3>Subtotal: <%=  @order.subtotal %></h3>
 <h3>Tax: <%=  @order.tax %></h3>
 <h3>Total: <%=  @order.total %></h3>

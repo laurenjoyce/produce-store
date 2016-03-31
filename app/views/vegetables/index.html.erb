@@ -1,7 +1,5 @@
 <h1>All Vegetables<h1>
 
-<h2>Want to add a new vegetable to the list? Click <a href="/vegetables/new">here</a>!</h2>
-
   <% @vegetables.each_slice(3) do |three_vegetables| %>
     <div class="row">
       <% three_vegetables.each do |vegetable| %>
@@ -16,12 +14,12 @@
             <h4>Health Benefits:</h4>
               <ul>
                 <% vegetable.health_benefits_list.each do |health_benefit| %>
-                  <li><%= health_benefit %></li>
+                  <li><h4><%= health_benefit %></h4></li>
                 <% end %>
               </ul>
             <h4>Last updated: <%= vegetable.friendly_updated_at %></h4>    
           </div>
         </div>
       <% end %>
-  </div>
+    </div>
 <% end %>

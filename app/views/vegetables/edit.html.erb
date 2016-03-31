@@ -1,5 +1,17 @@
 <h1>Edit the vegetable</h1>
 
+<% if @vegetable.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@vegetable.errors.count, "error")%> prohibited this vegetable from being saved:</h2>
+      <ul>
+        <% @vegetable.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
+
+
 <%= form_tag "/vegetables/#{@vegetable.id}", method: :patch do %>
 
   <div>

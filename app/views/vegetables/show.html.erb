@@ -35,7 +35,9 @@
 
   <p>Last updated: <%= @vegetable.friendly_updated_at %></p>
 
+  <% if current_user && current_user.admin %>
+    <%= link_to "Edit this vegetable", "/vegetables/#{@vegetable.id}/edit" %><br/>
+    <%= link_to "Delete this vegetable", "/vegetables/#{@vegetable.id}", method: :delete %><br/>
+  <% end %>
 
-  <%= link_to "Edit this vegetable", "/vegetables/#{@vegetable.id}/edit" %><br/>
-  <%= link_to "Delete this vegetable", "/vegetables/#{@vegetable.id}", method: :delete %><br/>
   <%= link_to "Back to index", "/vegetables" %><br/>
